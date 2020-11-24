@@ -3,7 +3,9 @@ package com.yosep.msa.coupon.coupon.repository
 import com.yosep.msa.coupon.coupon.domain.CouponCounter
 import org.reactivestreams.Publisher
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.data.redis.core.ReactiveRedisOperations
+import org.springframework.data.redis.core.ReactiveRedisTemplate
 import org.springframework.data.repository.CrudRepository
 //import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
@@ -17,7 +19,10 @@ import reactor.core.publisher.Mono
 @Repository
 public class CouponCounterRepository<T, U>(
     @Autowired
-    val contentRedisOps: ReactiveRedisOperations<T, U>
+    val contentRedisOps: ReactiveRedisOperations<T, U>,
+
+    @Autowired
+    val reactiveRedisTemplate: ReactiveRedisTemplate<T,U>
 ) : ReactiveCrudRepository<T, U>
 {
     override fun <S : T> save(entity: S): Mono<S> {

@@ -1,11 +1,9 @@
 package com.yosep.msa.coupon.config
 
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.autoconfigure.web.ResourceProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory
@@ -19,7 +17,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 
 
 @Configuration
-@EnableRedisRepositories
 class RedisConfig(
     @Value("\${spring.redis.host}")
     private val redisHost: String? = "127.0.0.1",
@@ -33,12 +30,12 @@ class RedisConfig(
         return LettuceConnectionFactory(redisHost!!, 6379)
     }
 
-    @Bean
-    fun redisTemplate(): RedisTemplate<*, *> {
-        val redisTemplate = RedisTemplate<ByteArray, ByteArray>()
-        redisTemplate.setConnectionFactory(redisConnectionFactory())
-        return redisTemplate
-    }
+//    @Bean
+//    fun redisTemplate(): RedisTemplate<*, *> {
+//        val redisTemplate = RedisTemplate<ByteArray, ByteArray>()
+//        redisTemplate.setConnectionFactory(redisConnectionFactory())
+//        return redisTemplate
+//    }
 
 //    @Bean
 //    fun reactiveRedisTemplate(connectionFactory: ReactiveRedisConnectionFactory?): ReactiveRedisTemplate<String, ResourceProperties.Content> {
@@ -62,13 +59,46 @@ class RedisConfig(
 //        return ReactiveRedisTemplate(connectionFactory!!, serializationContext)
 //    }
 
-    @Bean
-    fun template(factory: ReactiveRedisConnectionFactory): ReactiveRedisTemplate<String, String> {
-        var redisTemplate = ReactiveRedisTemplate(factory, RedisSerializationContext.string())
-        redisTemplate.serializationContext
+//    @Bean
+//    fun template(factory: ReactiveRedisConnectionFactory): ReactiveRedisTemplate<String, String> {
+//        var redisTemplate = ReactiveRedisTemplate(factory, RedisSerializationContext.string())
+//
+//        return ReactiveRedisTemplate(factory, RedisSerializationContext.string())
+//    }
 
-        return ReactiveRedisTemplate(factory, RedisSerializationContext.string())
+    @Bean(value = ["reactiveStringRedisTemplate"])
+    fun reactiveStringRedisTemplate(connectionFactory: ReactiveRedisConnectionFactory?): ReactiveRedisTemplate<String?, String?> {
+        val serializer: RedisSerializer<String> = StringRedisSerializer()
+        val jackson2JsonRedisSerializer: Jackson2JsonRedisSerializer<String> = Jackson2JsonRedisSerializer(
+            String::class.java
+        )
+        val serializationContext: RedisSerializationContext<String, String> = RedisSerializationContext
+            .newSerializationContext<String, String>()
+            .key(serializer)
+            .value(jackson2JsonRedisSerializer)
+            .hashKey(serializer)
+            .hashValue(jackson2JsonRedisSerializer)
+            .build()
+
+        return ReactiveRedisTemplate<String, String>(connectionFactory!!, serializationContext) as ReactiveRedisTemplate<String?, String?>
     }
 
+    @Primary
+    @Bean(value = ["reactiveLongRedisTemplate"])
+    fun reactiveLongRedisTemplate(connectionFactory: ReactiveRedisConnectionFactory?): ReactiveRedisTemplate<String?, Long?> {
+        val serializer: RedisSerializer<String> = StringRedisSerializer()
+        val jackson2JsonRedisSerializer: Jackson2JsonRedisSerializer<Long> = Jackson2JsonRedisSerializer(
+            Long::class.java
+        )
+        val serializationContext: RedisSerializationContext<String, Long> = RedisSerializationContext
+            .newSerializationContext<String, Long>()
+            .key(serializer)
+            .value(jackson2JsonRedisSerializer)
+            .hashKey(serializer)
+            .hashValue(jackson2JsonRedisSerializer)
+            .build()
+
+        return ReactiveRedisTemplate<String, Long>(connectionFactory!!, serializationContext) as ReactiveRedisTemplate<String?, Long?>
+    }
 
 }

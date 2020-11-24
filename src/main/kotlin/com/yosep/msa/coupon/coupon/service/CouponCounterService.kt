@@ -1,4 +1,4 @@
 package com.yosep.msa.yoscouponapi.coupon.service
 
-class CouponStockService {
+class CouponCounterService {
 }

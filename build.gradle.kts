@@ -50,6 +50,7 @@ dependencies {
     asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.2.RELEASE")
     testCompileOnly("org.springframework.restdocs:spring-restdocs-mockmvc:2.0.2.RELEASE")
 
+    implementation (group= "it.ozimov", name= "embedded-redis", version= "0.7.2")
 //    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.6.1")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
