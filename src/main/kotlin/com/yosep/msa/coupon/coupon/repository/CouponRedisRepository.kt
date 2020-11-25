@@ -1,33 +1,27 @@
 package com.yosep.msa.coupon.coupon.repository
 
-import com.yosep.msa.coupon.coupon.domain.CouponCounter
 import org.reactivestreams.Publisher
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.data.redis.core.ReactiveRedisOperations
 import org.springframework.data.redis.core.ReactiveRedisTemplate
-import org.springframework.data.repository.CrudRepository
-//import org.springframework.data.repository.CrudRepository
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
-import org.springframework.stereotype.Component
 import org.springframework.stereotype.Repository
-import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
-
 @Repository
-public class CouponCounterRepository<T, U>(
+class CouponRedisRepository<T, K>(
     @Autowired
-    val contentRedisOps: ReactiveRedisOperations<T, U>,
+    val contentRedisOps: ReactiveRedisOperations<T, K>,
 
     @Autowired
-    val reactiveRedisTemplate: ReactiveRedisTemplate<T,U>
-) : ReactiveCrudRepository<T, U>
-{
+    val reactiveRedisTemplate: ReactiveRedisTemplate<K, T>
+): ReactiveCrudRepository<T, K> {
+    val opsValue = contentRedisOps.opsForValue();
+
     override fun <S : T> save(entity: S): Mono<S> {
+
         TODO("Not yet implemented")
-//        Mono.just()
     }
 
     override fun <S : T> saveAll(entities: MutableIterable<S>): Flux<S> {
@@ -38,19 +32,19 @@ public class CouponCounterRepository<T, U>(
         TODO("Not yet implemented")
     }
 
-    override fun findById(id: U): Mono<T> {
+    override fun findById(id: K): Mono<T> {
         TODO("Not yet implemented")
     }
 
-    override fun findById(id: Publisher<U>): Mono<T> {
+    override fun findById(id: Publisher<K>): Mono<T> {
         TODO("Not yet implemented")
     }
 
-    override fun existsById(id: U): Mono<Boolean> {
+    override fun existsById(id: K): Mono<Boolean> {
         TODO("Not yet implemented")
     }
 
-    override fun existsById(id: Publisher<U>): Mono<Boolean> {
+    override fun existsById(id: Publisher<K>): Mono<Boolean> {
         TODO("Not yet implemented")
     }
 
@@ -58,11 +52,11 @@ public class CouponCounterRepository<T, U>(
         TODO("Not yet implemented")
     }
 
-    override fun findAllById(ids: MutableIterable<U>): Flux<T> {
+    override fun findAllById(ids: MutableIterable<K>): Flux<T> {
         TODO("Not yet implemented")
     }
 
-    override fun findAllById(idStream: Publisher<U>): Flux<T> {
+    override fun findAllById(idStream: Publisher<K>): Flux<T> {
         TODO("Not yet implemented")
     }
 
@@ -70,11 +64,11 @@ public class CouponCounterRepository<T, U>(
         TODO("Not yet implemented")
     }
 
-    override fun deleteById(id: U): Mono<Void> {
+    override fun deleteById(id: K): Mono<Void> {
         TODO("Not yet implemented")
     }
 
-    override fun deleteById(id: Publisher<U>): Mono<Void> {
+    override fun deleteById(id: Publisher<K>): Mono<Void> {
         TODO("Not yet implemented")
     }
 
@@ -93,6 +87,5 @@ public class CouponCounterRepository<T, U>(
     override fun deleteAll(): Mono<Void> {
         TODO("Not yet implemented")
     }
-
 
 }

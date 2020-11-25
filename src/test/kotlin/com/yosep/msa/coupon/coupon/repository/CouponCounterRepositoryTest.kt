@@ -3,26 +3,21 @@ package com.yosep.msa.coupon.coupon.repository
 import com.yosep.msa.coupon.config.RedisConfig
 import com.yosep.msa.coupon.config.TestRedisConfiguration
 import com.yosep.msa.coupon.coupon.domain.CouponCounter
-import kotlinx.coroutines.reactive.awaitSingle
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayNameGeneration
+import org.junit.jupiter.api.DisplayNameGenerator
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.boot.SpringBootConfiguration
-import org.springframework.boot.autoconfigure.web.ResourceProperties
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Import
-import org.springframework.data.redis.core.ReactiveRedisOperations
 import org.springframework.data.redis.core.ReactiveRedisTemplate
+import org.springframework.data.redis.core.ReactiveValueOperations
 import org.springframework.test.annotation.Rollback
-import org.springframework.test.context.ContextConfiguration
-import reactor.core.publisher.Mono
 import reactor.test.StepVerifier
-import redis.embedded.Redis
 
-//@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores::class)
-
-@Import(RedisConfig::class,CouponCounterRepository::class,TestRedisConfiguration::class)
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores::class)
+@Import(RedisConfig::class, CouponRedisCounterRepository::class, TestRedisConfiguration::class)
 @SpringBootTest(classes = [CouponCounterRepositoryTest::class])
 class CouponCounterRepositoryTest(
 //    @Autowired
@@ -30,40 +25,45 @@ class CouponCounterRepositoryTest(
 
 //    @Autowired
 //    var couponCounterRepository: CouponCounterRepository<String,ResourceProperties.Content>
-) {
 
     @Autowired
     @Qualifier(value = "reactiveLongRedisTemplate")
-    lateinit var reactiveRedisTemplate: ReactiveRedisTemplate<String,Long>
+    var reactiveRedisTemplate: ReactiveRedisTemplate<String, Long>,
+
+    @Autowired
+    var couponRedisCounterRepository: CouponRedisCounterRepository
+) {
+    lateinit var valueOps:ReactiveValueOperations<String,Long>
+
+    @BeforeEach
+    fun setUp() {
+        valueOps = reactiveRedisTemplate.opsForValue()
+    }
 
     @Test
     @Rollback(value = false)
     fun couponCounterSaveImplTest() {
-//        StepVerifier.create()
-
-
-        var valueOps = reactiveRedisTemplate.opsForValue()
-//        var valueOps = contentRedisOps.opsForValue()
         // Given
         var couponCounter = CouponCounter.of("coupon-id1", 10)
 
-        var mono = valueOps.set("test1",10)
+        // When
+        var createdMono = valueOps.set("test1", 10)
+        println("$createdMono!")
 
-        StepVerifier.create(mono)
+        // Then
+        StepVerifier.create(createdMono)
             .expectNext(true)
             .verifyComplete()
 
 
-//        valueOps.decrement("test1")
-//        valueOps.decrement("test1")
-        var getMono = valueOps.get("test1")
-        var result = getMono
-            .doOnNext { valueOps.decrement("test1") }
-            .doOnNext { println("$it!!!") }
-
-        StepVerifier.create(valueOps.decrement("test1"))
-            .expectNext(9)
-            .verifyComplete()
+//        var getMono = valueOps.get("test1")
+//        var result = getMono
+//            .doOnNext { valueOps.decrement("test1") }
+//            .doOnNext { println("$it!!!") }
+//
+//        StepVerifier.create(valueOps.decrement("test1"))
+//            .expectNext(9)
+//            .verifyComplete()
     }
 
 
@@ -73,12 +73,28 @@ class CouponCounterRepositoryTest(
         var couponCounter = CouponCounter.of("coupon-id1", 10)
 
         // When
-//        var createdCouponCounter = couponCounterRepository.save(couponCounter)
+        var savedCouponCounter = couponRedisCounterRepository.save(couponCounter)
+        var findedCouponCounter = valueOps.get(couponCounter.id)
 
         // Then
-//        var findedCouponCounter = couponCounterRepository.findById(couponCounter.id)
+        StepVerifier.create(findedCouponCounter)
+            .expectNext(10)
+            .verifyComplete()
+    }
 
-//        Assert.assertEquals(findedCouponCounter.do, true)
-//        Assert.assertEquals(createdCouponCounter, findedCouponCounter)
+    @Test
+    fun couponCounterGetTest() {
+        // Given
+        var couponCounter = CouponCounter.of("coupon-id1", 10)
+        var savedCouponCounter = couponRedisCounterRepository.save(couponCounter)
+
+        // When
+        val findedCouponCounter = couponRedisCounterRepository.findById(couponCounter.id)
+
+        // Then
+        var anotherCouponCounter = CouponCounter.of("coupon-id2", 10)
+        StepVerifier.create(findedCouponCounter)
+            .expectNext(couponCounter)
+            .verifyComplete()
     }
 }
