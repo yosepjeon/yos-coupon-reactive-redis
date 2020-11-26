@@ -3,10 +3,7 @@ package com.yosep.msa.coupon.coupon.repository
 import com.yosep.msa.coupon.config.RedisConfig
 import com.yosep.msa.coupon.config.TestRedisConfiguration
 import com.yosep.msa.coupon.coupon.domain.CouponCounter
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayNameGeneration
-import org.junit.jupiter.api.DisplayNameGenerator
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.test.context.SpringBootTest
@@ -38,9 +35,13 @@ class CouponCounterRepositoryTest(
     @BeforeEach
     fun setUp() {
         valueOps = reactiveRedisTemplate.opsForValue()
+
+        var couponCounter = CouponCounter.of("coupon-decrease-test", 1000)
+        couponRedisCounterRepository.save(couponCounter)
     }
 
     @Test
+    @DisplayName("쿠폰 수량 저장 레포지터리 내부 구현 테스트")
     @Rollback(value = false)
     fun couponCounterSaveImplTest() {
         // Given
@@ -68,6 +69,7 @@ class CouponCounterRepositoryTest(
 
 
     @Test
+    @DisplayName("쿠폰 수량 저장 테스트")
     fun couponCounterSaveTest() {
         // Given
         var couponCounter = CouponCounter.of("coupon-id1", 10)
@@ -83,6 +85,7 @@ class CouponCounterRepositoryTest(
     }
 
     @Test
+    @DisplayName("특정 쿠폰 수량 가져오기 테스트")
     fun couponCounterGetTest() {
         // Given
         var couponCounter = CouponCounter.of("coupon-id1", 10)
@@ -93,8 +96,80 @@ class CouponCounterRepositoryTest(
 
         // Then
         var anotherCouponCounter = CouponCounter.of("coupon-id2", 10)
+        var findedCouponCounter2 = couponRedisCounterRepository.findById(anotherCouponCounter.id)
         StepVerifier.create(findedCouponCounter)
             .expectNext(couponCounter)
+            .verifyComplete()
+
+        StepVerifier.create(findedCouponCounter2)
+            .expectNext()
+            .verifyComplete()
+    }
+
+    @Test
+    @DisplayName("쿠폰 수량 1개 증가 및 감소 테스트")
+    fun couponCounterIncreaseAndDecreaseTest() {
+        // Given
+        var id = "coupon-decrease-test"
+
+        // When
+        var decreaseResult = couponRedisCounterRepository.decrease(id)
+
+        // Then
+        StepVerifier.create(decreaseResult)
+            .expectNext(999)
+            .verifyComplete()
+
+        // When
+        var increaseResult = couponRedisCounterRepository.increase(id)
+
+        // Then
+        StepVerifier.create(increaseResult)
+            .expectNext(1000)
+            .verifyComplete()
+    }
+
+    @Test
+    @DisplayName("쿠폰 수량 2개 이상 증가 및 감소 테스트")
+    fun couponCounterIncreaseAndDecreseTest() {
+        // Given
+        var id = "coupon-decrease-test"
+
+        // When
+        var decreaseResult = couponRedisCounterRepository.decrease(id, 100)
+
+        // Then
+        StepVerifier.create(decreaseResult)
+            .expectNext(900)
+            .verifyComplete()
+
+        // When
+        var increaseResult = couponRedisCounterRepository.increase(id,50)
+
+        // Then
+        StepVerifier.create(increaseResult)
+            .expectNext(950)
+            .verifyComplete()
+    }
+
+    @Test
+    @DisplayName("쿠폰 삭제 테스트")
+    fun couponCounterDeleteTest() {
+        // Given
+        var couponCounter = CouponCounter.of("coupon-id1", 10)
+        var savedCouponCounter = couponRedisCounterRepository.save(couponCounter)
+
+        // When
+        var deleteResult = couponRedisCounterRepository.deleteById(couponCounter.id)
+        var findedCoupon = couponRedisCounterRepository.findById(couponCounter.id)
+
+        // Then
+        StepVerifier.create(deleteResult)
+            .expectNext()
+            .verifyComplete()
+
+        StepVerifier.create(findedCoupon)
+            .expectNext()
             .verifyComplete()
     }
 }

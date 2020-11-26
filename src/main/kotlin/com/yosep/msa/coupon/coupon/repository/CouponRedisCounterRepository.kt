@@ -44,6 +44,7 @@ public class CouponRedisCounterRepository(
     }
 
     override fun existsById(id: String): Mono<Boolean> {
+//        return valueOps.get(id)
         TODO("Not yet implemented")
     }
 
@@ -68,7 +69,9 @@ public class CouponRedisCounterRepository(
     }
 
     override fun deleteById(id: String): Mono<Void> {
-        TODO("Not yet implemented")
+        valueOps.delete(id).subscribe { println(it) }
+
+        return Mono.empty()
     }
 
     override fun deleteById(id: Publisher<String>): Mono<Void> {
@@ -76,7 +79,9 @@ public class CouponRedisCounterRepository(
     }
 
     override fun delete(entity: CouponCounter): Mono<Void> {
-        TODO("Not yet implemented")
+        valueOps.delete(entity.id).subscribe()
+
+        return Mono.empty()
     }
 
     override fun deleteAll(entities: MutableIterable<CouponCounter>): Mono<Void> {
@@ -96,14 +101,14 @@ public class CouponRedisCounterRepository(
     }
 
     override fun increase(id: String, delta: Long): Mono<Long> {
-        TODO("Not yet implemented")
+        return valueOps.increment(id, delta)
     }
 
     override fun decrease(id: String): Mono<Long> {
-        TODO("Not yet implemented")
+        return valueOps.decrement(id)
     }
 
     override fun decrease(id: String, delta: Long): Mono<Long> {
-        TODO("Not yet implemented")
+        return valueOps.decrement(id, delta)
     }
 }
