@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.data.redis.core.ReactiveRedisOperations
 import org.springframework.data.redis.core.ReactiveRedisTemplate
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -16,9 +17,8 @@ import reactor.core.publisher.Mono
 public class CouponRedisCounterRepository(
 
     @Autowired
-    val reactiveRedisTemplate: ReactiveRedisTemplate<String,Long>
-) : ReactiveCrudRepository<CouponCounter, String>, CounterRepository<Long, String>
-{
+    val reactiveRedisTemplate: ReactiveRedisTemplate<String, Long>
+) : ReactiveCrudRepository<CouponCounter, String>, CounterRepository<Long, String> {
     var valueOps = reactiveRedisTemplate.opsForValue()
 
     override fun <S : CouponCounter> save(entity: S): Mono<S> {
@@ -36,7 +36,8 @@ public class CouponRedisCounterRepository(
     }
 
     override fun findById(id: String): Mono<CouponCounter> {
-        return valueOps.get(id).flatMap { value -> Mono.justOrEmpty(CouponCounter.of(id,value)) }
+        return valueOps.get(id).flatMap { value -> Mono.just(CouponCounter.of(id, value)) }
+            .switchIfEmpty(Mono.empty())
     }
 
     override fun findById(id: Publisher<String>): Mono<CouponCounter> {

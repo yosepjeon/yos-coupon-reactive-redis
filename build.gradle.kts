@@ -82,7 +82,7 @@ dependencies {
     }
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.kafka:spring-kafka-test")
-    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+//    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
     testImplementation("org.springframework.security:spring-security-test")
 }
 

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
-@Repository
 class CouponRedisRepository<T, K>(
     @Autowired
     val contentRedisOps: ReactiveRedisOperations<T, K>,

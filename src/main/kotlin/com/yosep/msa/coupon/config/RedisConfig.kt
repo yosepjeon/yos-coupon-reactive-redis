@@ -22,12 +22,13 @@ class RedisConfig(
     private val redisHost: String? = "127.0.0.1",
 
     @Value("\${spring.redis.port}")
-    private val redisPort: String = "6379"
+    private val redisPort: Int = 6379
 ) {
 
+    @Primary
     @Bean
-    fun redisConnectionFactory(): RedisConnectionFactory {
-        return LettuceConnectionFactory(redisHost!!, 6379)
+    fun reactiveRedisConnectionFactory(): ReactiveRedisConnectionFactory {
+        return LettuceConnectionFactory(redisHost!!, redisPort)
     }
 
 //    @Bean
@@ -66,26 +67,28 @@ class RedisConfig(
 //        return ReactiveRedisTemplate(factory, RedisSerializationContext.string())
 //    }
 
-    @Bean(value = ["reactiveStringRedisTemplate"])
-    fun reactiveStringRedisTemplate(connectionFactory: ReactiveRedisConnectionFactory?): ReactiveRedisTemplate<String?, String?> {
-        val serializer: RedisSerializer<String> = StringRedisSerializer()
-        val jackson2JsonRedisSerializer: Jackson2JsonRedisSerializer<String> = Jackson2JsonRedisSerializer(
-            String::class.java
-        )
-        val serializationContext: RedisSerializationContext<String, String> = RedisSerializationContext
-            .newSerializationContext<String, String>()
-            .key(serializer)
-            .value(jackson2JsonRedisSerializer)
-            .hashKey(serializer)
-            .hashValue(jackson2JsonRedisSerializer)
-            .build()
+//    @Bean(value = ["reactiveStringRedisTemplate"])
+//    fun reactiveStringRedisTemplate(connectionFactory: ReactiveRedisConnectionFactory?): ReactiveRedisTemplate<String?, String?> {
+//        val serializer: RedisSerializer<String> = StringRedisSerializer()
+//        val jackson2JsonRedisSerializer: Jackson2JsonRedisSerializer<String> = Jackson2JsonRedisSerializer(
+//            String::class.java
+//        )
+//        val serializationContext: RedisSerializationContext<String, String> = RedisSerializationContext
+//            .newSerializationContext<String, String>()
+//            .key(serializer)
+//            .value(jackson2JsonRedisSerializer)
+//            .hashKey(serializer)
+//            .hashValue(jackson2JsonRedisSerializer)
+//            .build()
+//
+//        return ReactiveRedisTemplate<String, String>(connectionFactory!!, serializationContext) as ReactiveRedisTemplate<String?, String?>
+//    }
 
-        return ReactiveRedisTemplate<String, String>(connectionFactory!!, serializationContext) as ReactiveRedisTemplate<String?, String?>
-    }
+    //    @Primary
+//    @Bean(value = ["reactiveLongRedisTemplate"])
+    @Bean
+    fun reactiveLongRedisTemplate(connectionFactory: ReactiveRedisConnectionFactory?): ReactiveRedisTemplate<String, Long>? {
 
-    @Primary
-    @Bean(value = ["reactiveLongRedisTemplate"])
-    fun reactiveLongRedisTemplate(connectionFactory: ReactiveRedisConnectionFactory?): ReactiveRedisTemplate<String?, Long?> {
         val serializer: RedisSerializer<String> = StringRedisSerializer()
         val jackson2JsonRedisSerializer: Jackson2JsonRedisSerializer<Long> = Jackson2JsonRedisSerializer(
             Long::class.java
@@ -98,7 +101,10 @@ class RedisConfig(
             .hashValue(jackson2JsonRedisSerializer)
             .build()
 
-        return ReactiveRedisTemplate<String, Long>(connectionFactory!!, serializationContext) as ReactiveRedisTemplate<String?, Long?>
+        var reactiveRedisTemplate: ReactiveRedisTemplate<String, Long>? =
+            ReactiveRedisTemplate<String, Long>(connectionFactory!!, serializationContext)
+
+        return reactiveRedisTemplate
     }
 
 }
