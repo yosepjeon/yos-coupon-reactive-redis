@@ -1,7 +1,7 @@
 package com.yosep.msa.coupon.coupon.repository
 
 import com.yosep.msa.coupon.config.RedisConfig
-import com.yosep.msa.coupon.config.TestRedisConfiguration
+//import com.yosep.msa.coupon.config.TestRedisConfiguration
 import com.yosep.msa.coupon.coupon.domain.CouponCounter
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +14,7 @@ import org.springframework.test.annotation.Rollback
 import reactor.test.StepVerifier
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores::class)
-@Import(RedisConfig::class, CouponRedisCounterRepository::class, TestRedisConfiguration::class)
+@Import(RedisConfig::class, CouponRedisCounterRepository::class)
 @SpringBootTest(classes = [CouponCounterRepositoryTest::class])
 class CouponCounterRepositoryTest(
 //    @Autowired

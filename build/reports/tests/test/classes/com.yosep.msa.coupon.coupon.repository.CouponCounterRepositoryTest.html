@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - CouponCounterRepositoryTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>CouponCounterRepositoryTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.yosep.msa.coupon.coupon.repository.html">com.yosep.msa.coupon.coupon.repository</a> &gt; CouponCounterRepositoryTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">6</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.668s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">쿠폰 삭제 테스트</td>
+<td class="success">couponCounterDeleteTest()</td>
+<td class="success">0.013s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">특정 쿠폰 수량 가져오기 테스트</td>
+<td class="success">couponCounterGetTest()</td>
+<td class="success">0.017s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">쿠폰 수량 1개 증가 및 감소 테스트</td>
+<td class="success">couponCounterIncreaseAndDecreaseTest()</td>
+<td class="success">0.619s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">쿠폰 수량 2개 이상 증가 및 감소 테스트</td>
+<td class="success">couponCounterIncreaseAndDecreseTest()</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">쿠폰 수량 저장 레포지터리 내부 구현 테스트</td>
+<td class="success">couponCounterSaveImplTest()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">쿠폰 수량 저장 테스트</td>
+<td class="success">couponCounterSaveTest()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>21:54:48.506 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+21:54:48.516 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+21:54:48.538 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.yosep.msa.coupon.coupon.repository.CouponCounterRepositoryTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+21:54:48.551 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.yosep.msa.coupon.coupon.repository.CouponCounterRepositoryTest], using SpringBootContextLoader
+21:54:48.554 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.yosep.msa.coupon.coupon.repository.CouponCounterRepositoryTest]: class path resource [com/yosep/msa/coupon/coupon/repository/CouponCounterRepositoryTest-context.xml] does not exist
+21:54:48.555 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.yosep.msa.coupon.coupon.repository.CouponCounterRepositoryTest]: class path resource [com/yosep/msa/coupon/coupon/repository/CouponCounterRepositoryTestContext.groovy] does not exist
+21:54:48.555 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.yosep.msa.coupon.coupon.repository.CouponCounterRepositoryTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+21:54:48.592 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.yosep.msa.coupon.coupon.repository.CouponCounterRepositoryTest]
+21:54:48.675 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.yosep.msa.coupon.coupon.repository.CouponCounterRepositoryTest]: using defaults.
+21:54:48.675 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+21:54:48.690 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@694b9d7a, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@be4b48, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@65f74343, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@62bd72b9, org.springframework.test.context.support.DirtiesContextTestExecutionListener@57a883d9, org.springframework.test.context.transaction.TransactionalTestExecutionListener@253e666f, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7a0cd4d0, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@732d5992, org.springframework.test.context.event.EventPublishingTestExecutionListener@6088ba65, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@3653b505, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@2a654d4b, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@331d705c, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@16e3bfc8, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@3db3cb8c, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@3d3cd664, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@657bce0f]
+21:54:48.692 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@8dc0a06 testClass = CouponCounterRepositoryTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@f9362ab testClass = CouponCounterRepositoryTest, locations = '{}', classes = '{class com.yosep.msa.coupon.coupon.repository.CouponCounterRepositoryTest, class com.yosep.msa.coupon.coupon.repository.CouponCounterRepositoryTest}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@7dd54da4, [ImportsContextCustomizer@1a9b1c85 key = [com.yosep.msa.coupon.config.RedisConfig, com.yosep.msa.coupon.coupon.repository.CouponRedisCounterRepository]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@6857e23b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@2ef8eb49, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@6fe3425, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@47848d45, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@fa729a], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+21:54:48.718 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.5.RELEASE)
+
+2020-12-01 21:54:49.478  INFO 82822 --- [    Test worker] c.y.m.c.c.r.CouponCounterRepositoryTest  : No active profile set, falling back to default profiles: default
+2020-12-01 21:54:50.165  INFO 82822 --- [    Test worker] c.y.m.c.c.r.CouponCounterRepositoryTest  : Started CouponCounterRepositoryTest in 1.439 seconds (JVM running for 2.379)
+MonoNext!
+true
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 6.3</a> at 2020. 12. 1. 오후 9:54:51</p>
+</div>
+</div>
+</body>
+</html>

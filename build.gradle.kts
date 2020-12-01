@@ -47,8 +47,8 @@ extra["springCloudVersion"] = "Hoxton.SR8"
 dependencies {
     compileOnly("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+")
 
-    asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.2.RELEASE")
-    testCompileOnly("org.springframework.restdocs:spring-restdocs-mockmvc:2.0.2.RELEASE")
+//    asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.2.RELEASE")
+//    testCompileOnly("org.springframework.restdocs:spring-restdocs-mockmvc:2.0.2.RELEASE")
 
     implementation (group= "it.ozimov", name= "embedded-redis", version= "0.7.2")
 //    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.6.1")
@@ -60,14 +60,16 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("org.springframework.cloud:spring-cloud-starter-oauth2")
 //    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-webflux"){
+        exclude(module= "spring-boot-starter-tomcat")
+    }
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("org.springframework.cloud:spring-cloud-starter-config")
-    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+//    implementation("org.springframework.cloud:spring-cloud-starter-config")
+//    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     implementation("org.springframework.kafka:spring-kafka")
     implementation("junit:junit:4.12")
     implementation(group="com.fasterxml.jackson.datatype", name= "jackson-datatype-jsr310", version = "2.10.1")
@@ -76,7 +78,6 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("mysql:mysql-connector-java")
-    annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }

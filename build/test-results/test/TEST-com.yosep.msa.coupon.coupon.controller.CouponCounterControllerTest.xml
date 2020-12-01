@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.yosep.msa.coupon.coupon.controller.CouponCounterControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-12-01T12:54:51" hostname="yokkaebiui-MacBookPro.local" time="0.298">
+  <properties/>
+  <testcase name="getCouponControllerTest()" classname="com.yosep.msa.coupon.coupon.controller.CouponCounterControllerTest" time="0.298"/>
+  <system-out><![CDATA[2020-12-01 21:54:50.877  INFO 82822 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.yosep.msa.coupon.coupon.controller.CouponCounterControllerTest], using SpringBootContextLoader
+2020-12-01 21:54:50.877  INFO 82822 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.yosep.msa.coupon.coupon.controller.CouponCounterControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2020-12-01 21:54:50.880  INFO 82822 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2020-12-01 21:54:50.880  INFO 82822 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4bf83508, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7b58aaa5, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@c3c26e8, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@65e9626f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6f335baf, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5180d96e, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3ce6aed0, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@12b25939, org.springframework.test.context.event.EventPublishingTestExecutionListener@67a996e3, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@303568d1, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@392cd029, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@39d72da4, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@1262baf3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@98a3b8e, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@56f80f0e, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@56c2a278]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.3.5.RELEASE)
+
+2020-12-01 21:54:50.959  INFO 82822 --- [    Test worker] c.y.m.c.c.c.CouponCounterControllerTest  : No active profile set, falling back to default profiles: default
+2020-12-01 21:54:51.074  INFO 82822 --- [    Test worker] c.y.m.c.c.c.CouponCounterControllerTest  : Started CouponCounterControllerTest in 0.193 seconds (JVM running for 3.288)
+get!!!
+HTTP GET /reactive/api/coupons/test1
+/reactive/api/coupons/test1
+org.springframework.test.web.reactive.server.DefaultWebTestClient$DefaultBodyContentSpec@52c20d88@@@
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

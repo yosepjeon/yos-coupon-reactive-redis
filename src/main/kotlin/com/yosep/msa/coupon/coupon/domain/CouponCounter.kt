@@ -1,12 +1,12 @@
 package com.yosep.msa.coupon.coupon.domain
 
+import org.jetbrains.annotations.NotNull
 import org.springframework.data.redis.core.RedisHash
 import java.util.Objects.nonNull
-import javax.validation.constraints.NotBlank
 
 @RedisHash("coupon-counter")
 data class CouponCounter(
-    @NotBlank
+    @NotNull
     val id: String,
     var count: Long
 ) {

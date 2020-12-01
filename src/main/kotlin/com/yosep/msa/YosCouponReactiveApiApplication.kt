@@ -4,11 +4,11 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration
 import org.springframework.boot.runApplication
-import org.springframework.web.reactive.config.EnableWebFlux
+import org.springframework.context.annotation.ComponentScan
 
 @SpringBootApplication
+@ComponentScan(basePackages = ["com.yosep.*"])
 @EnableAutoConfiguration(exclude = [WebMvcAutoConfiguration::class] )
-@EnableWebFlux
 class YosCouponReactiveApiApplication {
 
 }

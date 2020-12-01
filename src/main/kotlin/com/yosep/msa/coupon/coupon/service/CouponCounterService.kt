@@ -13,7 +13,7 @@ class CouponCounterService(
     private val repository: CouponRedisCounterRepository
 ) {
     fun getCouponCounter(id:String): Mono<CouponCounter> {
-        println(id)
-        return repository.findById(id).switchIfEmpty(Mono.empty())
+
+        return repository.findById(id)
     }
 }
