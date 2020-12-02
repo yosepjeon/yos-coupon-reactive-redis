@@ -6,6 +6,7 @@ import com.yosep.msa.yoscouponapi.coupon.service.CouponCounterService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
@@ -37,7 +38,8 @@ class CouponCounterHandler(
             .switchIfEmpty(notFound().build())
     }
 
-    fun test(req: ServerRequest): Mono<ServerResponse> = ok()
-        .build()
+    fun test(req: ServerRequest): Mono<ServerResponse> {
+        return ok().build()
+    }
 
 }

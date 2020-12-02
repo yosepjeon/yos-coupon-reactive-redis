@@ -32,6 +32,9 @@ version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
+    compile{
+        exclude("org.apache.tomcat","spring-boot-starter-tomcat")
+    }
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
     }
@@ -50,19 +53,21 @@ dependencies {
 //    asciidoctor("org.springframework.restdocs:spring-restdocs-asciidoctor:2.0.2.RELEASE")
 //    testCompileOnly("org.springframework.restdocs:spring-restdocs-mockmvc:2.0.2.RELEASE")
 
+//    implementation(group= "org.springframework.boot", name= "spring-boot-starter-reactor-netty", version= "2.4.0")
     implementation (group= "it.ozimov", name= "embedded-redis", version= "0.7.2")
 //    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.6.1")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-data-redis-reactive")
-    implementation("org.springframework.boot:spring-boot-starter-hateoas")
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
-    implementation("org.springframework.cloud:spring-cloud-starter-oauth2")
-//    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-webflux"){
-        exclude(module= "spring-boot-starter-tomcat")
-    }
+    implementation("org.springframework.boot:spring-boot-starter-hateoas") {
+        exclude(group="org.springframework.boot",module= "spring-boot-starter-tomcat")
+    } // hateoas 기본적으로 tomcat 내장!
+
+//    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+//    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+//    implementation("org.springframework.cloud:spring-cloud-starter-oauth2")
+
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

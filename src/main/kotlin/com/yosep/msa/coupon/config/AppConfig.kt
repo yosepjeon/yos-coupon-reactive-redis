@@ -8,7 +8,7 @@ import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
-import org.springframework.cloud.client.loadbalancer.LoadBalanced
+//import org.springframework.cloud.client.loadbalancer.LoadBalanced
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.client.RestTemplate
@@ -22,7 +22,7 @@ class AppConfig {
         return ModelMapper()
     }
 
-    @LoadBalanced
+//    @LoadBalanced
     @Bean
     fun restTemplate(): RestTemplate {
         return RestTemplate()
