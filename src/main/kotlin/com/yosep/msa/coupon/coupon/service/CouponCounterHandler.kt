@@ -26,16 +26,21 @@ class CouponCounterHandler(
 //        .contentType(MediaType.APPLICATION_JSON)
 //        .body<CouponCounter>(Mono.justOrEmpty(repository.findById(req.pathVariable("id").toString())))
 //        .switchIfEmpty(notFound().build())
-    fun getById(req: ServerRequest): Mono<ServerResponse> {
-        println("get!!!")
-        println(req.toString())
-        println(req.path())
+    fun getCouponById(req: ServerRequest): Mono<ServerResponse> {
 
         return ok()
             .contentType(MediaType.APPLICATION_JSON)
             .body<CouponCounter>(service.getCouponCounter(req.pathVariable("id").toString())
                 .switchIfEmpty(Mono.empty()))
             .switchIfEmpty(notFound().build())
+    }
+
+    fun decreaseCouponByOne(req: ServerRequest):Mono<ServerResponse> {
+        return ok()
+            .contentType(MediaType.APPLICATION_JSON)
+            .body<CouponCounter>(service.useCouponOnce(req.pathVariable("id").toString()))
+            .switchIfEmpty(notFound().build())
+
     }
 
     fun test(req: ServerRequest): Mono<ServerResponse> {

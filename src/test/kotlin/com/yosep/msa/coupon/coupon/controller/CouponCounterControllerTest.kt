@@ -50,6 +50,12 @@ class CouponCounterControllerTest(
 
         var couponCounter = CouponCounter("test1", 100)
         couponCounterRepository.save(couponCounter)
+
+        var couponCounterForCountableCouponTest = CouponCounter("decrease-test1",100)
+        var zeroValueCouponCounterForCountableCouponTest = CouponCounter("decrease-test1-zero-value",0)
+
+        couponCounterRepository.save(couponCounterForCountableCouponTest)
+        couponCounterRepository.save(zeroValueCouponCounterForCountableCouponTest)
     }
 
     @Test
@@ -84,5 +90,21 @@ class CouponCounterControllerTest(
 //            .expectStatus()
 //            .isNotFound
 
+    }
+
+    @Test
+    @DisplayName("쿠폰 재고수 감소 테스트")
+    fun useCountableCouponTest() {
+        var result = webTestClient
+            .post()
+            .uri("/reactive/api/coupons/use/{id}", "test1")
+            .exchange()
+            .expectHeader()
+            .contentType(MediaType.APPLICATION_JSON)
+            .expectStatus()
+            .isOk
+            .expectBody()
+
+        println("$result")
     }
 }

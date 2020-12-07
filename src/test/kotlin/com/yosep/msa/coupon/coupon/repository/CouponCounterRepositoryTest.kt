@@ -130,6 +130,11 @@ class CouponCounterRepositoryTest(
     }
 
     @Test
+    fun couponCounterDecreaseCompensation() {
+
+    }
+
+    @Test
     @DisplayName("쿠폰 수량 2개 이상 증가 및 감소 테스트")
     fun couponCounterIncreaseAndDecreseTest() {
         // Given

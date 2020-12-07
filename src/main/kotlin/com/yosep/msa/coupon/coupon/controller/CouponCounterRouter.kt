@@ -18,7 +18,8 @@ class CouponCounterRouter(val couponCounterHandler: CouponCounterHandler) {
         path("/reactive/api/coupons"),
         router {
             listOf(
-                GET(pattern = "/{id}",couponCounterHandler::getById),
+                GET("/{id}",couponCounterHandler::getCouponById),
+                POST("/use/{id}",couponCounterHandler::decreaseCouponByOne),
                 GET("/test",couponCounterHandler::test)
             )
         }
