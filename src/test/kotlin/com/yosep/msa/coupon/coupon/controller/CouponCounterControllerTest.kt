@@ -4,11 +4,10 @@ import com.yosep.msa.coupon.config.RedisConfig
 import com.yosep.msa.coupon.coupon.domain.CouponCounter
 import com.yosep.msa.coupon.coupon.repository.CouponRedisCounterRepository
 import com.yosep.msa.coupon.coupon.service.CouponCounterHandler
-import com.yosep.msa.yoscouponapi.coupon.service.CouponCounterService
+import com.yosep.msa.coupon.coupon.service.CouponCounterService
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
@@ -104,7 +103,19 @@ class CouponCounterControllerTest(
             .expectStatus()
             .isOk
             .expectBody()
+            .equals(true)
 
-        println("$result")
+        println("${result.toString()}")
+    }
+
+    @Test
+    @DisplayName("쿠폰 재고가 0개일때 쿠폰을 사용할때 테스트")
+    fun useCountableCouponButCountZeroTest() {
+        var result = webTestClient
+            .post()
+            .uri("/reactive/api/coupons/use/{id}","decrease-test1-zero-value")
+            .exchange()
+            .expectHeader()
+//            .contentType(MediaType.APPLICATION_JSON)
     }
 }

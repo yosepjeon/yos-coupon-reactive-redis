@@ -1,4 +1,4 @@
-package com.yosep.msa.yoscouponapi.coupon.service
+package com.yosep.msa.coupon.coupon.service
 
 import com.yosep.msa.coupon.common.CouponUtil
 import com.yosep.msa.coupon.coupon.domain.CouponCounter
@@ -20,21 +20,31 @@ class CouponCounterService(
     }
 
     fun useCouponOnce(id:String):Mono<Boolean> {
-        val doOnSuccessConsumer = { safe:Boolean -> {
-            if(!safe) {
-                repository.increase(id)
-            }
-        }}
+        println("useCouponOnce Call")
 
 
         return repository.decrease(id)
             .switchIfEmpty(Mono.empty())
             .flatMap { value -> Mono.justOrEmpty(CouponUtil.isSafeCountValue(value))}
-            .doOnSuccess { it -> doOnSuccessConsumer(it) }
-            .switchIfEmpty(Mono.empty())
+            .doOnSuccess {
+                if(!it) {
+                    println("값을 복구합니다.")
+                    repository.increase(id).subscribe()
+                }
+            }
 //            .blockOptional()
 //            .orElse(false)
-//        repository.decrease(id).doOnNext()
+
+
+//        return repository.decrease(id)
+//            .switchIfEmpty(Mono.empty())
+//            .flatMap { value -> Mono.justOrEmpty(CouponUtil.isSafeCountValue(value))}
+//            .doOnSuccess { it -> {
+//                println("$it@@@@")
+//                doOnSuccessConsumer(it)
+//            } }
+//            .blockOptional()
+//            .orElse(false)
     }
 
     fun useCouponMultiple(id:String, num:Long) {

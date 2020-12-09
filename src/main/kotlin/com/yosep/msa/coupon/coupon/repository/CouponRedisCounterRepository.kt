@@ -98,6 +98,7 @@ public class CouponRedisCounterRepository(
     }
 
     override fun increase(id: String): Mono<Long> {
+        println("increase")
         return valueOps.increment(id)
     }
 
