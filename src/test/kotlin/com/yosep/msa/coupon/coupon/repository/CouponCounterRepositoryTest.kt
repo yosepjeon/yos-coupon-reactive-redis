@@ -2,7 +2,7 @@ package com.yosep.msa.coupon.coupon.repository
 
 import com.yosep.msa.coupon.config.RedisConfig
 //import com.yosep.msa.coupon.config.TestRedisConfiguration
-import com.yosep.msa.coupon.coupon.domain.CouponCounter
+import com.yosep.msa.coupon.coupon.domain.withAmount.CouponCounter
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier

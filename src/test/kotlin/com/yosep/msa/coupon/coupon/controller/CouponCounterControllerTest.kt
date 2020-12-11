@@ -1,7 +1,7 @@
 package com.yosep.msa.coupon.coupon.controller
 
 import com.yosep.msa.coupon.config.RedisConfig
-import com.yosep.msa.coupon.coupon.domain.CouponCounter
+import com.yosep.msa.coupon.coupon.domain.withAmount.CouponCounter
 import com.yosep.msa.coupon.coupon.repository.CouponRedisCounterRepository
 import com.yosep.msa.coupon.coupon.service.CouponCounterHandler
 import com.yosep.msa.coupon.coupon.service.CouponCounterService
@@ -52,9 +52,11 @@ class CouponCounterControllerTest(
 
         var couponCounterForCountableCouponTest = CouponCounter("decrease-test1",100)
         var zeroValueCouponCounterForCountableCouponTest = CouponCounter("decrease-test1-zero-value",0)
+        var oneValueCouponCounterForCountableCouponTest = CouponCounter("decrease-test1-one-value",1)
 
         couponCounterRepository.save(couponCounterForCountableCouponTest)
         couponCounterRepository.save(zeroValueCouponCounterForCountableCouponTest)
+        couponCounterRepository.save(oneValueCouponCounterForCountableCouponTest)
     }
 
     @Test
@@ -94,16 +96,20 @@ class CouponCounterControllerTest(
     @Test
     @DisplayName("쿠폰 재고수 감소 테스트")
     fun useCountableCouponTest() {
+        // Given
+        var id = "test1"
+
+        // When & Then
         var result = webTestClient
             .post()
-            .uri("/reactive/api/coupons/use/{id}", "test1")
+            .uri("/reactive/api/coupons/{id}", id)
             .exchange()
             .expectHeader()
             .contentType(MediaType.APPLICATION_JSON)
             .expectStatus()
             .isOk
             .expectBody()
-            .equals(true)
+            .jsonPath("$.result").isEqualTo(true)
 
         println("${result.toString()}")
     }
@@ -111,11 +117,46 @@ class CouponCounterControllerTest(
     @Test
     @DisplayName("쿠폰 재고가 0개일때 쿠폰을 사용할때 테스트")
     fun useCountableCouponButCountZeroTest() {
+        // Given
+        var id = "decrease-test1-zero-value"
+
+        // When & Then
         var result = webTestClient
             .post()
-            .uri("/reactive/api/coupons/use/{id}","decrease-test1-zero-value")
+            .uri("/reactive/api/coupons/{id}",id)
             .exchange()
             .expectHeader()
-//            .contentType(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .expectStatus()
+            .isOk
+            .expectBody()
+            .jsonPath("$.result").isEqualTo(false)
+    }
+
+    @Test
+    @DisplayName("쿠폰 재고가 1개일때 쿠폰을 1개 사용할때 테스트")
+    fun useCoutableCouponRestOneCount() {
+        // Given
+        var id = "decrease-test1-one-value"
+
+        // When & Then
+        var result = webTestClient
+            .post()
+            .uri("/reactive/api/coupons/{id}",id)
+            .exchange()
+            .expectHeader()
+    }
+
+    @Test
+    @DisplayName("쿠폰 재고가 0개일때 쿠폰을 3개 한꺼번에 사용할때 테스트")
+    fun useCountableCouponRestZeroCount() {
+        // Given
+        val id = "decrease-test1-multi-value"
+        val num = 3L
+
+        // When & Then
+//        var result = webTestClient
+//            .post()
+
     }
 }

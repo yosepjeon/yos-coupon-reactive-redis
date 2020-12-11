@@ -1,13 +1,10 @@
 package com.yosep.msa.coupon.coupon.repository
 
-import com.yosep.msa.coupon.coupon.domain.CouponCounter
+import com.yosep.msa.coupon.coupon.domain.withAmount.CouponCounter
 import org.reactivestreams.Publisher
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.data.redis.core.ReactiveRedisOperations
 import org.springframework.data.redis.core.ReactiveRedisTemplate
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
-import org.springframework.stereotype.Component
 import org.springframework.stereotype.Repository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -98,7 +95,6 @@ public class CouponRedisCounterRepository(
     }
 
     override fun increase(id: String): Mono<Long> {
-        println("increase")
         return valueOps.increment(id)
     }
 

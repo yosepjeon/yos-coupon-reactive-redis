@@ -2,7 +2,7 @@ package com.yosep.msa.coupon.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.yosep.msa.coupon.coupon.domain.CouponCounter
+import com.yosep.msa.coupon.coupon.domain.withAmount.CouponCounter
 import com.yosep.msa.coupon.coupon.repository.CouponRedisCounterRepository
 import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,7 +12,6 @@ import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.client.RestTemplate
-import java.util.*
 
 
 @Configuration

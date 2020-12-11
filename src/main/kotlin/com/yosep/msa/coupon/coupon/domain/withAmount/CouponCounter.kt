@@ -1,4 +1,4 @@
-package com.yosep.msa.coupon.coupon.domain
+package com.yosep.msa.coupon.coupon.domain.withAmount
 
 import org.jetbrains.annotations.NotNull
 import org.springframework.data.redis.core.RedisHash

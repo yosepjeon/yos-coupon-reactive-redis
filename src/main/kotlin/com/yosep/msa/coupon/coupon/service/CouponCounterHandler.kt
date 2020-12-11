@@ -1,6 +1,7 @@
 package com.yosep.msa.coupon.coupon.service
 
-import com.yosep.msa.coupon.coupon.domain.CouponCounter
+import com.yosep.msa.coupon.coupon.domain.withAmount.CouponCounter
+import com.yosep.msa.coupon.coupon.domain.withAmount.CouponCounterCaculateResult
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
@@ -33,9 +34,16 @@ class CouponCounterHandler(
     fun decreaseCouponByOne(req: ServerRequest):Mono<ServerResponse> {
         return ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body<Boolean>(service.useCouponOnce(req.pathVariable("id").toString()))
+            .body<CouponCounterCaculateResult>(service.useCouponOnce(req.pathVariable("id").toString()))
             .switchIfEmpty(notFound().build())
 
+    }
+
+    fun decreaseCouponByMultiValue(req: ServerRequest):Mono<ServerResponse> {
+        return ok()
+            .contentType(MediaType.APPLICATION_JSON)
+            .body<CouponCounterCaculateResult>(service.useCouponMultiple(req.pathVariable("id"),req.pathVariable("num").toLong()))
+            .switchIfEmpty(notFound().build())
     }
 
     fun test(req: ServerRequest): Mono<ServerResponse> {
