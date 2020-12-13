@@ -155,8 +155,16 @@ class CouponCounterControllerTest(
         val num = 3L
 
         // When & Then
-//        var result = webTestClient
-//            .post()
+        var result = webTestClient
+            .post()
+            .uri("/reactive/api/coupons/{id}/use-count/{num}",id,num)
+            .exchange()
+            .expectHeader()
+            .contentType(MediaType.APPLICATION_JSON)
+            .expectStatus()
+            .isOk
+            .expectBody()
+            .jsonPath("$.result").isEqualTo(false)
 
     }
 }
