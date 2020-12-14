@@ -19,8 +19,8 @@ class CouponCounterRouter(val couponCounterHandler: CouponCounterHandler) {
         router {
             listOf(
                 GET("/{id}",couponCounterHandler::getCouponById),
-                POST("/{id}",couponCounterHandler::decreaseCouponByOne),
-                POST("/{id}/use-count/{num}",couponCounterHandler::decreaseCouponByMultiValue),
+                PUT("/{id}",couponCounterHandler::decreaseCouponByOne),
+                PUT("/{id}/used-count/{num}",couponCounterHandler::decreaseCouponByMultiValue),
                 GET("/test",couponCounterHandler::test)
             )
         }

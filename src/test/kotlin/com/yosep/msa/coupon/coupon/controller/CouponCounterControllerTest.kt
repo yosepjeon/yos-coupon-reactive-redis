@@ -101,7 +101,7 @@ class CouponCounterControllerTest(
 
         // When & Then
         var result = webTestClient
-            .post()
+            .put()
             .uri("/reactive/api/coupons/{id}", id)
             .exchange()
             .expectHeader()
@@ -122,7 +122,7 @@ class CouponCounterControllerTest(
 
         // When & Then
         var result = webTestClient
-            .post()
+            .put()
             .uri("/reactive/api/coupons/{id}",id)
             .exchange()
             .expectHeader()
@@ -141,7 +141,7 @@ class CouponCounterControllerTest(
 
         // When & Then
         var result = webTestClient
-            .post()
+            .put()
             .uri("/reactive/api/coupons/{id}",id)
             .exchange()
             .expectHeader()
@@ -156,8 +156,8 @@ class CouponCounterControllerTest(
 
         // When & Then
         var result = webTestClient
-            .post()
-            .uri("/reactive/api/coupons/{id}/use-count/{num}",id,num)
+            .put()
+            .uri("/reactive/api/coupons/{id}/used-count/{num}",id,num)
             .exchange()
             .expectHeader()
             .contentType(MediaType.APPLICATION_JSON)
